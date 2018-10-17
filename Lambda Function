@@ -12,7 +12,7 @@ exports.handler = function(event, context, callback) {
             console.log("Received question: " + body.question);
             let q = body.question;
             if(q == "Hello"){reply = "Hi there, how can I help?";}
-            if(q == "Hi"){reply = "Hi there, how can I help?";}
+            else if(q == "Hi"){reply = "Hi there, how can I help?";}
             else if(q == "Track package"){reply = "I'll send you shipping information";}
             else if(q == "Refund"){reply = "Refund reason?";}
             else if(q == "Shopping"){reply = "Please go to our official website"}
