@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<title>chatbot</title>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			  $("button#bt").click(function(){
+		  	console.log("in click");
+		  	var q = document.forms["myform"]["m"].value;
+			  makeTheCall(q);
+	          function makeTheCall(queryString) {
+
+			  successResponse = function(data) {
+			  //functionality goes here;
+			  console.log("success");
+			  console.log("the result = " + data.message);
+			  $("p").html(data.message);
+			  }
+			  failureFunction = function(data) {
+				  //functionality goes here;
+				  console.log("fail");
+			  }
+			    var destinationUrl = "https://gqw089jkaa.execute-api.us-east-1.amazonaws.com/test/seattle";
+			    $.ajax({
+			      type: 'POST',
+			      url: destinationUrl,
+			      dataType: 'json', // use json only, not jsonp
+			      crossDomain: true, // tell browser to allow cross domain.
+			      success: successResponse,
+			      error: failureFunction,
+			      contentType: 'application/json; charset=utf-8',
+			      headers: {
+			      	'x-api-key' : 'ID61bKETuf7D4kaQquK6P89nqXfrunGV7u7qBWmN'
+			      },
+			      data: JSON.stringify({"question" : queryString})
+			    });
+			  }
+
+			   });
+
+			});
+		
+	</script>
+
+	<p>Welcome</p>
+	<form id = "myform" action="">
+      <input id="m" autocomplete="off" /><button type="button" id="bt">Send</button>
+    </form>
+</body>
+</html>
