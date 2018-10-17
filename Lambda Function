@@ -1,0 +1,39 @@
+'use strict';
+console.log('Loading cahtbot function');
+ 
+exports.handler = function(event, context, callback) {
+    let reply = "Please enter valid character that can be recognized by chatbot";
+    let responseCode = 200;
+    console.log("request: " + JSON.stringify(event));
+    
+    if (event.body !== null && event.body !== undefined) {
+        let body = JSON.parse(event.body)
+        if (body.question !== undefined && body.question !== null && body.question !== "") {
+            console.log("Received question: " + body.question);
+            let q = body.question;
+            if(q == "Hello"){reply = "Hi there, how can I help?";}
+            if(q == "Hi"){reply = "Hi there, how can I help?";}
+            else if(q == "Track package"){reply = "I'll send you shipping information";}
+            else if(q == "Refund"){reply = "Refund reason?";}
+            else if(q == "Shopping"){reply = "Please go to our official website"}
+        }
+    }
+ 
+
+    var responseBody = {
+        message: reply,
+        input: event
+    };
+    
+    var response = {
+        statusCode: responseCode,
+        headers: {
+            "x-custom-header" : "my custom header value",
+            "Access-Control-Allow-Origin" : "*",
+            "Access-Control-Allow-Methods" : "POST,GET",
+        },
+        body: JSON.stringify(responseBody)
+    };
+    console.log("response: " + JSON.stringify(response))
+    callback(null, response);
+};
